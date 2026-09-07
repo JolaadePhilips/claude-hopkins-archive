@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#f2eee5" />
+  <title>Claude Hopkins Archive — Internet Swipe File</title>
+  <meta name="description" content="A visual, source-backed internet swipe file of Claude C. Hopkins advertisements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="swipe-context.css" />
+</head>
+<body>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">INTERNET SWIPE FILE · CLAUDE C. HOPKINS · 1890s–1920s</p>
+      <h1>Claude Hopkins</h1>
+      <p class="deck">The ads themselves, first. Each scan keeps its source, context and credit trail, with dates and authorship labelled by confidence rather than guesswork.</p>
+    </div>
+    <div class="archive-meta"><span id="count">0</span> records</div>
+  </header>
+
+  <section class="toolbar" aria-label="Archive filters">
+    <label class="search-wrap"><span>Search</span><input id="search" type="search" placeholder="headline, brand, hook…" /></label>
+    <label><span>Brand</span><select id="brand"><option value="all">All brands</option></select></label>
+    <label><span>Year</span><select id="year"><option value="all">All years</option></select></label>
+    <label><span>Principle</span><select id="principle"><option value="all">All principles</option></select></label>
+    <button id="reset" class="reset">Clear</button>
+  </section>
+
+  <main>
+    <section id="gallery" class="gallery" aria-live="polite"></section>
+    <p id="empty" class="empty" hidden>No ads match those filters.</p>
+  </main>
+
+  <dialog id="detail" class="detail">
+    <button class="close" aria-label="Close">×</button>
+    <div id="detailInner"></div>
+  </dialog>
+
+  <footer>
+    <p><strong>Editorial note.</strong> This is a research swipe file, not a claim that every surviving Hopkins advertisement has been found. Every bulk scan retains exact collection volume/page provenance. OCR-assisted brand, year and headline fields remain provisional until supported by an additional source.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="archive-loader.js"></script>
+  <script src="swipe-context.js"></script>
+</body>
+</html>
