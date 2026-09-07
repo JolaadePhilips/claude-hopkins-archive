@@ -33,7 +33,19 @@ jobs:
       - name: Install Python packages
         run: pip install pymupdf pillow imagehash pytesseract
 
-      - name: Download, render, OCR and catalogue archive
+      - name: Download Hopkins source volumes
+        run: |
+          UA='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/152 Safari/537.36'
+          REF='https://mattbockenstette.com/vault/'
+          curl --http1.1 -L --fail --retry 3 -A "$UA" -e "$REF" -o /tmp/hopkins-1.pdf 'https://mattbockenstette.com/wp-content/uploads/2022/09/claude-hopkins-pages-1-2.pdf'
+          curl --http1.1 -L --fail --retry 3 -A "$UA" -e "$REF" -o /tmp/hopkins-2.pdf 'https://mattbockenstette.com/wp-content/uploads/2022/09/claude-hopkins-pages-2.pdf'
+          curl --http1.1 -L --fail --retry 3 -A "$UA" -e "$REF" -o /tmp/hopkins-3.pdf 'https://mattbockenstette.com/wp-content/uploads/2022/09/claude-hopkins-pages-3.pdf'
+          ls -lh /tmp/hopkins-*.pdf
+          test $(stat -c%s /tmp/hopkins-1.pdf) -gt 100000000
+          test $(stat -c%s /tmp/hopkins-2.pdf) -gt 100000000
+          test $(stat -c%s /tmp/hopkins-3.pdf) -gt 100000000
+
+      - name: Render, OCR and catalogue archive
         run: python scripts/ingest_archive.py
 
       - name: Show archive totals
@@ -48,5 +60,6 @@ jobs:
             echo "No generated changes"
           else
             git commit -m "Ingest Hopkins public-domain ad scans"
-            git push
+            git pull --rebase origin main
+            git push origin main
           fi
